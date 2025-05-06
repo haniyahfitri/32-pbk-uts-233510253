@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="todo-container">
-<h1>Daftar Bunga🌷</h1>
+      <h1>Daftar Bunga🌷</h1>
 
       <div class="input-section">
         <input
@@ -11,9 +11,21 @@
         />
         <button @click="addTodo">Tambah</button>
       </div>
+
+      <button class="filter-btn" @click="filterTodos">
+        {{ showIncomplete ? 'Tampilkan Semua' : 'Tampilkan Bunga yang Belum Dibeli' }}
+      </button>
+
       <ul>
-        <li v-for="todo in todos" :key="todo.id" :class="{ done: todo.completed }">
-          <input type="checkbox" v-model="todo.completed" />
+        <li
+          v-for="todo in filteredTodos"
+          :key="todo.id"
+          :class="{ done: todo.completed }"
+        >
+          <input
+            type="checkbox"
+            v-model="todo.completed"
+          />
           <span>{{ todo.text }}</span>
           <button class="delete-btn" @click="removeTodo(todo)">❌</button>
         </li>
@@ -22,13 +34,22 @@
   </div>
 </template>
 
+
 <script>
 export default {
   data() {
     return {
       newTodo: '',
-      todos: []
+      todos: [],
+      showIncomplete: false
     };
+  },
+  computed: {
+    filteredTodos() {
+      return this.showIncomplete
+        ? this.todos.filter(todo => !todo.completed)
+        : this.todos;
+    }
   },
   methods: {
     addTodo() {
@@ -43,6 +64,9 @@ export default {
     },
     removeTodo(todo) {
       this.todos = this.todos.filter(t => t.id !== todo.id);
+    },
+    filterTodos() {
+      this.showIncomplete = !this.showIncomplete;
     }
   }
 };
@@ -86,6 +110,7 @@ h1 {
   color: #4176e8;
   margin-bottom: 20px;
 }
+
 .input-section {
   display: flex;
   justify-content: center;
@@ -122,6 +147,25 @@ h1 {
 .input-section button:hover {
   background-color: #5a9ae3;
 }
+
+.filter-btn {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 15px;
+  background-color: #66b0ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+.filter-btn:hover {
+  background-color: #5a9ae3;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -144,13 +188,13 @@ li {
   font-weight: bold;
 }
 
+li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
 li span {
   flex-grow: 1;
   text-align: left;
-}
-/* Tambahkan style untuk checkbox dan item selesai */
-li input[type="checkbox"] {
-  margin-right: 10px;
 }
 
 li.done span {
@@ -158,7 +202,7 @@ li.done span {
   color: gray;
   opacity: 0.7;
 }
-/* Tambahkan style untuk tombol hapus */
+
 .delete-btn {
   background-color: #a3bef9;
   border: none;
