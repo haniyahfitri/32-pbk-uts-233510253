@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="todo-container">
-            <h1>Daftar Bunga🌷</h1>
+      <h1>Daftar Bunga🌷</h1>
 
       <div class="input-section">
         <input
@@ -12,7 +12,8 @@
         <button @click="addTodo">Tambah</button>
       </div>
       <ul>
-        <li v-for="todo in todos" :key="todo.id">
+        <li v-for="todo in todos" :key="todo.id" :class="{ done: todo.completed }">
+          <input type="checkbox" v-model="todo.completed" />
           <span>{{ todo.text }}</span>
         </li>
       </ul>
@@ -142,5 +143,15 @@ li {
 li span {
   flex-grow: 1;
   text-align: left;
+}
+/* Tambahkan style untuk checkbox dan item selesai */
+li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+li.done span {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.7;
 }
 </style>
