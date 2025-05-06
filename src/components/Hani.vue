@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="todo-container">
-      <h1>Daftar Bunga🌷</h1>
+            <h1>Daftar Bunga🌷</h1>
 
       <div class="input-section">
         <input
@@ -11,6 +11,11 @@
         />
         <button @click="addTodo">Tambah</button>
       </div>
+      <ul>
+        <li v-for="todo in todos" :key="todo.id">
+          <span>{{ todo.text }}</span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -76,7 +81,6 @@ h1 {
   color: #4176e8;
   margin-bottom: 20px;
 }
-/* Tambahkan style untuk input-section */
 .input-section {
   display: flex;
   justify-content: center;
@@ -112,5 +116,31 @@ h1 {
 
 .input-section button:hover {
   background-color: #5a9ae3;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+li {
+  font-family: "Poppins", sans-serif;
+  background-color: #e6eeff;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #3367d6;
+  font-weight: bold;
+}
+
+li span {
+  flex-grow: 1;
+  text-align: left;
 }
 </style>
