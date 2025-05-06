@@ -2,6 +2,15 @@
   <div class="app-container">
     <div class="todo-container">
       <h1>Daftar Bunga🌷</h1>
+
+      <div class="input-section">
+        <input
+          type="text"
+          v-model="newTodo"
+          placeholder="Tambahkan bunga!📬"
+        />
+        <button @click="addTodo">Tambah</button>
+      </div>
     </div>
   </div>
 </template>
@@ -9,7 +18,22 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      newTodo: '',
+      todos: []
+    };
+  },
+  methods: {
+    addTodo() {
+      if (this.newTodo.trim()) {
+        this.todos.push({
+          id: Date.now(),
+          text: this.newTodo,
+          completed: false
+        });
+        this.newTodo = '';
+      }
+    }
   }
 };
 </script>
@@ -51,5 +75,42 @@ h1 {
   font-size: 35px;
   color: #4176e8;
   margin-bottom: 20px;
+}
+/* Tambahkan style untuk input-section */
+.input-section {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.input-section input[type="text"] {
+  flex: 1;
+  max-width: 350px;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #99b1ff;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-family: "Poppins", sans-serif;
+}
+
+.input-section button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: #66b0ff;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+.input-section button:hover {
+  background-color: #5a9ae3;
 }
 </style>
