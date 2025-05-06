@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="todo-container">
-      <h1>Daftar Bunga🌷</h1>
+<h1>Daftar Bunga🌷</h1>
 
       <div class="input-section">
         <input
@@ -15,6 +15,7 @@
         <li v-for="todo in todos" :key="todo.id" :class="{ done: todo.completed }">
           <input type="checkbox" v-model="todo.completed" />
           <span>{{ todo.text }}</span>
+          <button class="delete-btn" @click="removeTodo(todo)">❌</button>
         </li>
       </ul>
     </div>
@@ -39,6 +40,9 @@ export default {
         });
         this.newTodo = '';
       }
+    },
+    removeTodo(todo) {
+      this.todos = this.todos.filter(t => t.id !== todo.id);
     }
   }
 };
@@ -153,5 +157,19 @@ li.done span {
   text-decoration: line-through;
   color: gray;
   opacity: 0.7;
+}
+/* Tambahkan style untuk tombol hapus */
+.delete-btn {
+  background-color: #a3bef9;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  background-color: #8ba9e2;
 }
 </style>
